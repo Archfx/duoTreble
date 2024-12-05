@@ -3,6 +3,9 @@
         android:fragment="me.phh.treble.app.MyDeviceSettingsFragment"
         android:title="My device" />
     <header
+        android:fragment="me.phh.treble.app.DuoSettingsFragment"
+        android:title="DUO-DE features" />
+    <header
         android:fragment="me.phh.treble.app.OnePlusSettingsFragment"
         android:title="OnePlus features" />
     <header
@@ -56,7 +59,5 @@
         <intent android:action="android.settings.SYSTEM_UPDATE_SETTINGS"
                 android:targetClass=".UpdaterActivity"/>
     </header>
-    <header
-        android:fragment="me.phh.treble.app.DuoSettingsFragment"
-        android:title="Surface Duo features" />
+    
 </preference-headers>
