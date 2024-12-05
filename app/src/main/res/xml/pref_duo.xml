@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="key_disable_hinge_gap"
+        android:title="Disable Hinge Gap"
+        android:summary="Disable the hinge gap for Surface Duo. Requires a reboot" />
+    <ListPreference
+		android:defaultValue="dynamic"
+        android:entries="@array/pref_posture_lock_entries"
+        android:entryValues="@array/pref_posture_lock_values"
+        android:key="key_duo_posture_lock"
+		android:title="Default Screen in Single-screen postures" 
+    />
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="wireless_pen_charging"
+        android:title="Enable Surface Slim Pen Wireless charging"
+        android:summary="Allows pen charging when pen cases is attached. Only works on Surface Duo 2. May drain more battery." />
+</PreferenceScreen>
