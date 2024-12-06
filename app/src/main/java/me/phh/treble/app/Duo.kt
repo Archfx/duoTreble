@@ -10,6 +10,8 @@ import java.lang.Exception
 import me.phh.treble.app.MSPenCharger
 import android.os.ServiceManager
 import android.os.RemoteException
+import android.os.SystemProperties
+import androidx.preference.SwitchPreference
 
 object Duo: EntryStartup {
     var ctxt: Context? = null
@@ -54,23 +56,25 @@ object Duo: EntryStartup {
                 val b = sp.getBoolean(key, false)
                 // val readvalue = MSPenCharger.readPenCharger()
                 // Log.e("PHH", "Current value in the ms_pen_charger file (current value: $readvalue)")
-                when (b) {
-                    true -> {
-                        val result = MSPenCharger.turnOnPenCharger()
-                        if (result == 0) {
-                            Log.d("PHH", "Pen charger started successfully")
-                        } else {
-                            Log.e("PHH", "Failed to start pen charger (error code: $result)")
+                if (isDuo2) {  
+                    when (b) {
+                        true -> {
+                            val result = MSPenCharger.turnOnPenCharger()
+                            if (result == 0) {
+                                Log.d("PHH", "Pen charger started successfully")
+                            } else {
+                                Log.e("PHH", "Failed to start pen charger (error code: $result)")
+                            }
                         }
-                    }
-                    false -> {
-                        val result = MSPenCharger.turnOffPenCharger()
-                        if (result == 0) {
-                            Log.d("PHH", "Pen charger stopped successfully")
-                        } else {
-                            Log.e("PHH", "Failed to stop pen charger (error code: $result)")
+                        false -> {
+                            val result = MSPenCharger.turnOffPenCharger()
+                            if (result == 0) {
+                                Log.d("PHH", "Pen charger stopped successfully")
+                            } else {
+                                Log.e("PHH", "Failed to stop pen charger (error code: $result)")
+                            }
                         }
-                    }
+                    }                   
                 }
             }
         }
@@ -81,6 +85,13 @@ object Duo: EntryStartup {
         Log.d("PHH", "Starting Duo service")
         val sp = PreferenceManager.getDefaultSharedPreferences(ctxt)
         sp.registerOnSharedPreferenceChangeListener(spListener)
+
+        val wirelessPenChargingPref: SwitchPreference? = findPreference("wireless_pen_charging")
+        val hardware = SystemProperties.get("ro.hardware", "N/A")
+        if (hardware == "surfaceduo2") {
+            wirelessPenChargingPref?.isVisible = true
+            isDuo2 = true
+        }
 
         this.ctxt = ctxt.applicationContext
     }

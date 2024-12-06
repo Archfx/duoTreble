@@ -15,6 +15,7 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="wireless_pen_charging"
-        android:title="Enable Surface Slim Pen Wireless charging"
-        android:summary="Allows pen charging when pen cases is attached. Only works on Surface Duo 2. May drain more battery." />
+        android:title="Enable Surface Slim Pen Wireless Charging"
+        android:summary="Allows pen charging when pen case is attached. May drain more battery."
+        android:visible="false" />
 </PreferenceScreen>
