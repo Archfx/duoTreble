@@ -2,7 +2,7 @@ package me.phh.treble.app
 
 object MSPenCharger {
     init {
-        System.loadLibrary("pencharger") // Load the native library named "pencharger"
+        System.loadLibrary("ms_pen_charger")
     }
 
     @JvmStatic
