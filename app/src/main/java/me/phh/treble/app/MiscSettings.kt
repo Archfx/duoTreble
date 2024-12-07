@@ -1,226 +1,170 @@
-<?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <Preference android:title="Sponsor phh"
-        android:key="key_sponsor">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:data="https://github.com/sponsors/phhusson/" />
-    </Preference>
-    <PreferenceCategory android:title="Mobile network">
-        <ListPreference
-            android:defaultValue="default"
-            android:entries="@array/pref_misc_mobile_signal"
-            android:entryValues="@array/pref_misc_mobile_signal_values"
-            android:key="key_misc_mobile_signal"
-            android:title="Signal meter method" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Audio">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_huawei_headset_fix"
-            android:title="Force headset switch (Huawei default)" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_headset_devinput"
-            android:title="Use alternate way to detect headsets" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_disable_audio_effects"
-            android:title="Disable audio effects" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_disable_fast_audio"
-            android:title="Disable fast audio" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Display">
-        <EditTextPreference
-            android:defaultValue="-1"
-            android:key="key_misc_rounded_corners"
-            android:title="Set rounded corners diameter"
-            android:inputType="number"
-            android:summary="Requires a reboot" />
-        <EditTextPreference
-            android:defaultValue="-1"
-            android:key="key_misc_rounded_corners_overlay"
-            android:title="Set forced/faked rounded corners diameter"
-            android:inputType="number" />
-        <ListPreference
-            android:defaultValue="-1"
-            android:entries="@array/pref_misc_display_fps"
-            android:entryValues="@array/pref_misc_display_fps_values"
-            android:key="key_misc_display_fps"
-            android:title="Force FPS" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_dynamic_fps"
-            android:title="Dynamic FPS"
-            android:summary="Adjust refresh rate depending on the content on screen\nRequires reboot"/>
-        <Preference
-            android:key="key_misc_restart_systemui"
-            android:title="Restart SystemUI"
-            android:summary="Recommended after switching display resolution\nRequires root" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_no_hwcomposer"
-            android:title="Disable HW overlays"
-            android:summary="Eats more CPU and battery" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_aod"
-            android:title="Force allow Always-On Display" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_mediatek_touch_hint_rotate"
-            android:title="Rotation perf hint instead of touch"
-            android:summary="For Mediatek devices"/>
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_mediatek_ged_kpi"
-            android:title="Mediatek GED KPI support"
-            android:summary="Might improve GPU performance for Mediatek devices"/>
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_disable_sf_gl_backpressure"
-            android:title="Disable SF GL backpressure"
-            android:summary="Might improve rendering performance\nRequires reboot"/>
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_disable_sf_hwc_backpressure"
-            android:title="Disable SF HWC backpressure"
-            android:summary="Might improve rendering performance"/>
-        <ListPreference
-            android:defaultValue="1.86"
-            android:entries="@array/pref_misc_max_aspect_ratio_pre_o"
-            android:entryValues="@array/pref_misc_max_aspect_ratio_pre_o_values"
-            android:key="key_misc_max_aspect_ratio_pre_o"
-            android:title="Compatibility max aspect ratio" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_force_navbar_off"
-            android:title="Force navigation bar disabled"
-            android:summary="Requires a reboot" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Backlight">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_low_gamma_brightness"
-            android:title="Set alternative brightness curve" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_linear_brightness"
-            android:title="Set linear brightness curve" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_disable_buttons_backlight"
-            android:title="Disable backlight of hardware buttons if present"
-            android:summary="Requires a reboot" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_backlight_scale"
-            android:title="Force alternative backlight scale" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_minimal_brightness"
-            android:title="Allows setting brightness to the lowest possible" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Camera">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_multi_camera"
-            android:title="Expose Aux cameras" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_force_camera2api_hal3"
-            android:title="Force Enable Camera2API HAL3" />
-        <ListPreference
-            android:defaultValue="-1"
-            android:entries="@array/pref_misc_camera_timestamp"
-            android:entryValues="@array/pref_misc_camera_timestamp_values"
-            android:key="key_misc_camera_timestamp"
-            android:title="Force Timestamp Source"
-            android:summary="Requires a reboot" />
-  </PreferenceCategory>
-    <PreferenceCategory android:title="Bluetooth">
-        <SwitchPreference
-            android:defaultValue="true"
-            android:key="key_misc_dynamic_sysbta"
-            android:title="Use System Wide BT HAL" />
-        <ListPreference
-            android:defaultValue="0"
-            android:entries="@array/pref_misc_bluetooth"
-            android:entryValues="@array/pref_misc_bluetooth_values"
-            android:key="key_misc_bluetooth"
-            android:title="Bluetooth workarounds" />
-        <ListPreference
-            android:defaultValue="0"
-            android:entries="@array/pref_misc_transport_size"
-            android:entryValues="@array/pref_misc_transport_size_values"
-            android:key="key_misc_esco_transport_unit_size"
-            android:title="Set eSCO transport unit size" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Telephony">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_allow_binder_thread_on_incoming_calls"
-            android:summary="May fix 4G calling\nRequires a reboot"
-            android:title="Allow binder thread on incoming calls" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_force_display_5g"
-            android:title="Force display 5G network"
-            android:summary="Displays 5G as an option for the preferred network type\nRequires a reboot" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_disable_voice_call_in"
-            android:title="Disable &quot;Voice Call In&quot; route"
-            android:summary="May fix echo or non-working audio on calls\nRequires a reboot" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_restart_ril"
-            android:title="Automatically restart RIL" />
-        <Preference android:title="@string/remove_telephony_subsystem"
-            android:key="key_misc_removetelephony" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Other">
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_storage_fuse"
-            android:title="Disable FUSE storage layer"
-            android:summary="This can (de/in)crease storage speed\nRequires a reboot" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_dt2w"
-            android:title="Double tap to wake"
-            android:summary="Unlikely to work for you" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_disable_sae_upgrade"
-            android:title="Disable WPA3/SAE" />
-        <ListPreference
-            android:defaultValue="00ff00"
-            android:entries="@array/pref_misc_fod_color"
-            android:entryValues="@array/pref_misc_fod_color_values"
-            android:key="key_misc_fod_color"
-            android:title="Under-display fp color" />
-        <Preference android:title="Securize"
-            android:key="key_misc_securize" />
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_secure_adb"
-            android:title="Secure adb"
-            android:summary="Computer requires approval" />
-    </PreferenceCategory>
-    <PreferenceCategory android:title="Debugging">
-        <Preference android:title="Debug Sensors">
-            <intent
-                android:action="android.intent.action.VIEW"
-                android:targetPackage="me.phh.treble.app"
-                android:targetClass="me.phh.treble.app.DebugSensors" />
-        </Preference>
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="key_misc_remotectl"
-            android:title="Allow takeover of the device by phh for debugging" />
-    </PreferenceCategory>
-</PreferenceScreen>
+package me.phh.treble.app
+
+import android.app.AlertDialog
+import android.app.Application
+import android.hardware.display.DisplayManager
+import android.os.Bundle
+import android.util.Log
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+
+object MiscSettings : Settings {
+    val mobileSignal = "key_misc_mobile_signal"
+    val displayFps = "key_misc_display_fps"
+    val dynamicFps = "key_misc_dynamic_fps"
+    val maxAspectRatioPreO = "key_misc_max_aspect_ratio_pre_o"
+    val multiCameras = "key_misc_multi_camera"
+    val forceCamera2APIHAL3 = "key_misc_force_camera2api_hal3"
+    val headsetFix = "key_huawei_headset_fix"
+    val roundedCorners = "key_misc_rounded_corners"
+    val roundedCornersOverlay = "key_misc_rounded_corners_overlay"
+    val disableButtonsBacklight = "key_misc_disable_buttons_backlight"
+    val forceNavbarOff = "key_misc_force_navbar_off"
+    val bluetooth = "key_misc_bluetooth"
+    val securize = "key_misc_securize"
+    val secureAdb = "key_misc_secure_adb"
+    val removeTelephony = "key_misc_removetelephony"
+    val remotectl = "key_misc_remotectl"
+    val disableAudioEffects = "key_misc_disable_audio_effects"
+    val disableFastAudio = "key_misc_disable_fast_audio"
+    val cameraTimestampOverride = "key_misc_camera_timestamp"
+    val sysbta = "key_misc_dynamic_sysbta"
+    val noHwcomposer = "key_misc_no_hwcomposer"
+    val storageFUSE = "key_misc_storage_fuse"
+    val backlightScale = "key_misc_backlight_scale"
+    val headsetDevinput = "key_misc_headset_devinput"
+    val restartRil = "key_misc_restart_ril"
+    val minimalBrightness = "key_misc_minimal_brightness"
+    val aod = "key_misc_aod"
+    val dt2w = "key_misc_dt2w"
+    val restartSystemUI = "key_misc_restart_systemui"
+    val fodColor = "key_misc_fod_color"
+    val mtkTouchHintIsRotate = "key_misc_mediatek_touch_hint_rotate"
+    val mtkGedKpi = "key_misc_mediatek_ged_kpi"
+    val allowBinderThread = "key_misc_allow_binder_thread_on_incoming_calls"
+    val lowGammaBrightness = "key_misc_low_gamma_brightness"
+    val linearBrightness = "key_misc_linear_brightness"
+    val forceDisplay5g = "key_misc_force_display_5g"
+    val disableVoiceCallIn = "key_misc_disable_voice_call_in"
+    val disableSfGlBackpressure = "key_misc_disable_sf_gl_backpressure"
+    val disableSfHwcBackpressure = "key_misc_disable_sf_hwc_backpressure"
+    val disableSaeUpgrade = "key_misc_disable_sae_upgrade"
+    val escoTransportUnitSize = "key_misc_esco_transport_unit_size"
+
+    override fun enabled() = true
+}
+
+class MiscSettingsFragment : SettingsFragment() {
+    override val preferencesResId = R.xml.pref_misc
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        super.onCreatePreferences(savedInstanceState, rootKey)
+
+        val securizePref = findPreference<Preference>(MiscSettings.securize)
+        securizePref!!.setOnPreferenceClickListener {
+                val builder = AlertDialog.Builder( this.getActivity() )
+                builder.setTitle(getString(R.string.remove_root))
+                builder.setMessage(getString(R.string.continue_question))
+
+                builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+
+                var cmds = listOf(
+                    arrayOf("/sbin/su", "-c", "/system/bin/phh-securize.sh"),
+                    arrayOf("/system/xbin/su", "-c", "/system/bin/phh-securize.sh"),
+                    arrayOf("/system/xbin/phh-su", "-c", "/system/bin/phh-securize.sh"),
+                    arrayOf("/sbin/su", "0", "/system/bin/phh-securize.sh"),
+                    arrayOf("/system/xbin/su", "0", "/system/bin/phh-securize.sh"),
+                    arrayOf("/system/xbin/phh-su", "0", "/system/bin/phh-securize.sh")
+                )
+                for (cmd in cmds) {
+                    try {
+                        Runtime.getRuntime().exec(cmd).waitFor()
+                        break
+                    } catch (t: Throwable) {
+                        Log.d("PHH", "Failed to exec \"" + cmd.joinToString(separator = " ") + "\", skipping")
+                    }
+                }
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            }
+
+            builder.show()
+            return@setOnPreferenceClickListener true
+        }
+
+        val removeTelephonyPref = findPreference<Preference>(MiscSettings.removeTelephony)
+        removeTelephonyPref!!.setOnPreferenceClickListener {
+
+            val builder = AlertDialog.Builder( this.getActivity() )
+            builder.setTitle(getString(R.string.remove_telephony_subsystem))
+            builder.setMessage(getString(R.string.continue_question))
+
+            builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+
+                var cmds = listOf(
+                    arrayOf("/sbin/su", "-c", "/system/bin/remove-telephony.sh"),
+                    arrayOf("/system/xbin/su", "-c", "/system/bin/remove-telephony.sh"),
+                    arrayOf("/system/xbin/phh-su", "-c", "/system/bin/remove-telephony.sh"),
+                    arrayOf("/sbin/su", "0", "/system/bin/remove-telephony.sh"),
+                    arrayOf("/system/xbin/su", "0", "/system/bin/remove-telephony.sh"),
+                    arrayOf("/system/xbin/phh-su", "0", "/system/bin/remove-telephony.sh")
+                )
+                for (cmd in cmds) {
+                    try {
+                        Runtime.getRuntime().exec(cmd).waitFor()
+                        break
+                    } catch (t: Throwable) {
+                        Log.d("PHH", "Failed to exec \"" + cmd.joinToString(separator = " ") + "\", skipping")
+                    }
+                }
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            }
+
+            builder.show()
+            return@setOnPreferenceClickListener true
+        }
+
+        val fpsPref = findPreference<ListPreference>(MiscSettings.displayFps)!!
+        val displayManager = activity.getSystemService(DisplayManager::class.java)
+        for(display in displayManager.displays) {
+            Log.d("PHH", "Got display $display")
+            for((index, mode) in display.supportedModes.withIndex()) {
+                Log.d("PHH", "\tsupportedModes[$index] = $mode")
+            }
+        }
+
+        val fpsEntries = listOf("Don't force") + displayManager.displays[0].supportedModes.map {
+            val fps = it.refreshRate
+            val w = it.physicalWidth
+            val h = it.physicalHeight
+            "${w}x${h}@${fps}"
+        }
+        val fpsValues = (-1.. displayManager.displays[0].supportedModes.size).toList().map { it.toString() }
+
+        fpsPref.setEntries(fpsEntries.toTypedArray())
+        fpsPref.setEntryValues(fpsValues.toTypedArray())
+
+        val restartSystemUIPref = findPreference<Preference>(MiscSettings.restartSystemUI)
+        restartSystemUIPref!!.setOnPreferenceClickListener {
+            var cmds = listOf(
+                arrayOf("/sbin/su", "-c", "/system/bin/killall com.android.systemui"),
+                arrayOf("/system/xbin/su", "-c", "/system/bin/killall com.android.systemui"),
+                arrayOf("/system/xbin/phh-su", "-c", "/system/bin/killall com.android.systemui"),
+                arrayOf("/sbin/su", "0", "/system/bin/killall com.android.systemui"),
+                arrayOf("/system/xbin/su", "0", "/system/bin/killall com.android.systemui"),
+                arrayOf("/system/xbin/phh-su", "0", "/system/bin/killall com.android.systemui")
+            )
+            for (cmd in cmds) {
+                try {
+                    Runtime.getRuntime().exec(cmd).waitFor()
+                    break
+                } catch (t: Throwable) {
+                    Log.d("PHH", "Failed to exec \"" + cmd.joinToString(separator = " ") + "\", skipping")
+                }
+            }
+            return@setOnPreferenceClickListener true
+        }
+    }
+}
