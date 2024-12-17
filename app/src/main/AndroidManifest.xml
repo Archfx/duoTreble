@@ -136,6 +136,19 @@
 
         <activity android:name=".DebugSensors" />
 
+        <service
+            android:name=".MsPENTileService"
+            android:exported="true"
+            android:label="Pen Charger"
+            android:icon="@drawable/ms_pen_icon"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.PEN_Tile" />
+            </intent-filter>
+            <meta-data android:name="android.service.quicksettings.TOGGLEABLE_TILE"
+            android:value="true" />
+        </service>
+
     </application>
 
 </manifest>

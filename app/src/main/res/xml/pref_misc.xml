@@ -203,8 +203,6 @@
             android:entryValues="@array/pref_misc_fod_color_values"
             android:key="key_misc_fod_color"
             android:title="Under-display fp color" />
-        <Preference android:title="Securize"
-            android:key="key_misc_securize" />
         <SwitchPreference
             android:defaultValue="false"
             android:key="key_misc_secure_adb"

@@ -3,7 +3,8 @@ package me.phh.treble.app
 import android.os.Bundle
 import android.os.SystemProperties
 import androidx.preference.SwitchPreference
-import me.phh.treble.app.PreferenceUpdater
+import android.util.Log
+
 
 object DuoSettings : Settings {
     val disableHingeGap = "key_disable_hinge_gap"
@@ -13,32 +14,23 @@ object DuoSettings : Settings {
     override fun enabled() = (SystemProperties.get("ro.hardware", "N/A") == "surfaceduo" || SystemProperties.get("ro.hardware", "N/A") == "surfaceduo2")
 }
 
-class DuoSettingsFragment : SettingsFragment(), PreferenceUpdater {
+class DuoSettingsFragment : SettingsFragment() {
     override val preferencesResId = R.xml.pref_duo
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         super.onCreatePreferences(savedInstanceState, rootKey)
         android.util.Log.d("PHH", "Loading duo fragment ${DuoSettings.enabled()}")
-    }
 
-    override fun onStart() {
-        super.onStart()
-        Duo.updater = this
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (Duo.updater == this) {
-            Duo.updater = null
+        // Check hardware property and hide wirelessPenCharging if condition met
+        val hardware = SystemProperties.get("ro.hardware", "N/A")
+        if (hardware == "surfaceduo") {
+            val wirelessPenChargingPref: SwitchPreference? = findPreference(DuoSettings.wirelessPenCharging)
+            wirelessPenChargingPref?.let {
+                preferenceScreen.removePreference(it)
+                Log.d("PHH", "Wireless Pen Charging preference removed for hardware: $hardware")
+            }
         }
     }
 
-    override fun showWirelessPenCharging() {
-        val wirelessPenChargingPref: SwitchPreference? = findPreference("wireless_pen_charging")
-        wirelessPenChargingPref?.isVisible = true
-    }
 }
 
-interface PreferenceUpdater {
-    fun showWirelessPenCharging()
-}

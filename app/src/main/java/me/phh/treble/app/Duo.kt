@@ -16,7 +16,6 @@ import androidx.preference.SwitchPreference
 object Duo: EntryStartup {
     var ctxt: Context? = null
     private var isDuo2: Boolean = false
-    var updater: PreferenceUpdater? = null
     val spListener = SharedPreferences.OnSharedPreferenceChangeListener { sp, key ->
         when(key) {
             DuoSettings.disableHingeGap -> {
@@ -89,7 +88,6 @@ object Duo: EntryStartup {
 
         val hardware = SystemProperties.get("ro.hardware", "N/A")
         if (hardware == "surfaceduo2") {
-            updater?.showWirelessPenCharging()
             isDuo2 = true
         }
 

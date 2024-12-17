@@ -17,5 +17,5 @@
         android:key="wireless_pen_charging"
         android:title="Enable Surface Slim Pen Wireless Charging"
         android:summary="Allows pen charging when pen case is attached. May drain more battery."
-        android:visible="false" />
+    />
 </PreferenceScreen>
