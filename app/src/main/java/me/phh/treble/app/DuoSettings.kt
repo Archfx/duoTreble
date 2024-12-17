@@ -10,6 +10,7 @@ object DuoSettings : Settings {
     val disableHingeGap = "key_disable_hinge_gap"
     val lockSingleScreenPosture = "key_duo_posture_lock"
     val wirelessPenCharging = "wireless_pen_charging"
+    val chargePenOnlyWhenDeviceIsCharging = "charge_pen_while_device_is_charging"
 
     override fun enabled() = (SystemProperties.get("ro.hardware", "N/A") == "surfaceduo" || SystemProperties.get("ro.hardware", "N/A") == "surfaceduo2")
 }
@@ -28,6 +29,12 @@ class DuoSettingsFragment : SettingsFragment() {
             wirelessPenChargingPref?.let {
                 preferenceScreen.removePreference(it)
                 Log.d("PHH", "Wireless Pen Charging preference removed for hardware: $hardware")
+            }
+
+            val chargePenOnlyWhenDeviceIsChargingPreference: SwitchPreference? = findPreference(DuoSettings.chargePenOnlyWhenDeviceIsCharging)
+            chargePenOnlyWhenDeviceIsChargingPreference?.let {
+                preferenceScreen.removePreference(it)
+                Log.d("PHH", "Wireless Pen Charger during device charge preference removed for hardware: $hardware")
             }
         }
     }

@@ -5,17 +5,23 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.util.Log
 import android.content.Intent
+import android.content.IntentFilter
 import java.io.File
 import java.lang.Exception
 import me.phh.treble.app.MSPenCharger
+import me.phh.treble.app.WirelessPenChargerBroadcastReceiver
 import android.os.ServiceManager
 import android.os.RemoteException
 import android.os.SystemProperties
 import androidx.preference.SwitchPreference
+import android.os.BatteryManager;
 
 object Duo: EntryStartup {
     var ctxt: Context? = null
     private var isDuo2: Boolean = false
+    private var penChargerBroadcastReceiver: WirelessPenChargerBroadcastReceiver? = null
+    private var penChargerIntentFilter: IntentFilter? = null
+
     val spListener = SharedPreferences.OnSharedPreferenceChangeListener { sp, key ->
         when(key) {
             DuoSettings.disableHingeGap -> {
@@ -54,6 +60,8 @@ object Duo: EntryStartup {
             DuoSettings.wirelessPenCharging -> {
                 // Retrieve the boolean value from shared preferences
                 val b = sp.getBoolean(key, false)
+                val value = if(b) "1" else "0"
+                Misc.safeSetprop("persist.sys.phh.duo.pen_charger_enabled", value)
                 // val readvalue = MSPenCharger.readPenCharger()
                 // Log.e("PHH", "Current value in the ms_pen_charger file (current value: $readvalue)")
                 if (isDuo2) {  
@@ -77,7 +85,58 @@ object Duo: EntryStartup {
                     }                   
                 }
             }
+
+            DuoSettings.chargePenOnlyWhenDeviceIsCharging -> {
+                val b = sp.getBoolean(key, false)
+                val value = if(b) "1" else "0"
+                Misc.safeSetprop("persist.sys.phh.duo.charge_pen_when_device_charging", value)
+                if (isDuo2) {  
+                    when (b) {
+                        true -> {
+                            //Check current state.
+                            setupBroadcastListener()
+                            if(isDeviceCharging()){
+                                MSPenCharger.turnOnPenCharger()
+                            }
+                            else{
+                                MSPenCharger.turnOffPenCharger()
+                            }
+                        }
+                        false -> {
+                            destroyBroadcastListener()
+                        }
+                    }                   
+                }
+            }
         }
+    }
+
+    private fun setupBroadcastListener() {
+        //Unregister if there are still some dangling loose ends to handle.
+        if(penChargerBroadcastReceiver != null){
+            this.ctxt?.unregisterReceiver(penChargerBroadcastReceiver)
+        }
+
+        // create broadcast receiver.
+        penChargerBroadcastReceiver = WirelessPenChargerBroadcastReceiver()
+
+        // On power change, the broadcast receiver should act.
+        penChargerIntentFilter = IntentFilter().also{ intentFilter -> 
+            intentFilter.addAction("ACTION_POWER_CONNECTED")
+            intentFilter.addAction("ACTION_POWER_DISCONNECTED")
+            this.ctxt?.registerReceiver(penChargerBroadcastReceiver, intentFilter)
+        }
+    }
+
+    private fun destroyBroadcastListener(){
+        penChargerBroadcastReceiver?.let{
+            this.ctxt?.unregisterReceiver(it)
+        }
+    }
+
+    private fun isDeviceCharging() : Boolean {
+        var batteryManager : BatteryManager = ctxt?.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+        return batteryManager.isCharging();
     }
 
     override fun startup(ctxt: Context) {
@@ -92,5 +151,29 @@ object Duo: EntryStartup {
         }
 
         this.ctxt = ctxt.applicationContext
+
+        //Read the current duo preferences and act on it.
+        if(isDuo2){
+            val chargeWhenPluggedIn : Boolean = SystemProperties.get("persist.sys.phh.duo.charge_pen_when_device_charging", "0") == "1"
+            val penChargerEnabled : Boolean = SystemProperties.get("persist.sys.phh.duo.pen_charger_enabled", "0") == "1"
+            // The device just started, the broadcast receiver is not setup, set it up if enabled.
+            if(chargeWhenPluggedIn){
+                setupBroadcastListener()
+
+                if(isDeviceCharging()){
+                    MSPenCharger.turnOnPenCharger()
+                }
+            }
+
+            //Only turn the pen charger on if explictly enabled, and the plug-in option is disabled.
+            if(penChargerEnabled && !chargeWhenPluggedIn){
+                MSPenCharger.turnOnPenCharger()
+            }
+
+            //In case for users that have the device default set to ON, but have left the option off.
+            if(!penChargerEnabled && !chargeWhenPluggedIn){
+                MSPenCharger.turnOffPenCharger()
+            }
+        }
     }
 }
