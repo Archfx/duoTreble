@@ -21,7 +21,7 @@
     <SwitchPreference
         android:defaultValue="false"
         android:key="charge_pen_while_device_is_charging"
-        android:title="Charge Pen only when device is plugged in."
+        android:title="Charge Pen only when device is plugged in"
         android:summary="Only charges pen when the device is plugged in. When unplugged, the pen will stop charging. Overrides the previous option."
     />
 </PreferenceScreen>

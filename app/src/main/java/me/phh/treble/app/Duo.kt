@@ -95,6 +95,8 @@ object Duo: EntryStartup {
                         true -> {
                             //Check current state.
                             setupBroadcastListener()
+
+                            //Do an initial check.
                             if(isDeviceCharging()){
                                 MSPenCharger.turnOnPenCharger()
                             }
@@ -104,6 +106,14 @@ object Duo: EntryStartup {
                         }
                         false -> {
                             destroyBroadcastListener()
+
+                            //Handle change if the pen charger is enabled.
+                            if(SystemProperties.get("persist.sys.phh.duo.pen_charger_enabled", "0") == "1"){
+                                MSPenCharger.turnOnPenCharger()
+                            }
+                            else{
+                                MSPenCharger.turnOffPenCharger()
+                            }
                         }
                     }                   
                 }
@@ -113,8 +123,12 @@ object Duo: EntryStartup {
 
     private fun setupBroadcastListener() {
         //Unregister if there are still some dangling loose ends to handle.
-        if(penChargerBroadcastReceiver != null){
-            this.ctxt?.unregisterReceiver(penChargerBroadcastReceiver)
+        try{
+            if(penChargerBroadcastReceiver != null){
+                this.ctxt?.unregisterReceiver(penChargerBroadcastReceiver)
+            }
+        } catch (e: IllegalArgumentException){
+            // Do nothing. the register is already unregistered it seems.
         }
 
         // create broadcast receiver.
@@ -129,9 +143,14 @@ object Duo: EntryStartup {
     }
 
     private fun destroyBroadcastListener(){
-        penChargerBroadcastReceiver?.let{
-            this.ctxt?.unregisterReceiver(it)
+        try{
+            penChargerBroadcastReceiver?.let{
+                this.ctxt?.unregisterReceiver(it)
+            }
+        } catch (e: IllegalArgumentException){
+            // Do nothing. the register is already unregistered it seems.
         }
+
     }
 
     private fun isDeviceCharging() : Boolean {
@@ -162,6 +181,9 @@ object Duo: EntryStartup {
 
                 if(isDeviceCharging()){
                     MSPenCharger.turnOnPenCharger()
+                }
+                else{
+                    MSPenCharger.turnOffPenCharger()
                 }
             }
 
