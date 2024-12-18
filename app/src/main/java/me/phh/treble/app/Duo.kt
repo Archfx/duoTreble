@@ -15,6 +15,7 @@ import android.os.RemoteException
 import android.os.SystemProperties
 import androidx.preference.SwitchPreference
 import android.os.BatteryManager;
+import android.widget.Toast;
 
 object Duo: EntryStartup {
     var ctxt: Context? = null
@@ -62,9 +63,11 @@ object Duo: EntryStartup {
                 val b = sp.getBoolean(key, false)
                 val value = if(b) "1" else "0"
                 Misc.safeSetprop("persist.sys.phh.duo.pen_charger_enabled", value)
+
+                val chargeWhenPluggedIn : Boolean = SystemProperties.get("persist.sys.phh.duo.charge_pen_when_device_charging", "0") == "1"
                 // val readvalue = MSPenCharger.readPenCharger()
                 // Log.e("PHH", "Current value in the ms_pen_charger file (current value: $readvalue)")
-                if (isDuo2) {  
+                if (isDuo2 && !chargeWhenPluggedIn) {  
                     when (b) {
                         true -> {
                             val result = MSPenCharger.turnOnPenCharger()
@@ -83,6 +86,10 @@ object Duo: EntryStartup {
                             }
                         }
                     }                   
+                }
+
+                if(chargeWhenPluggedIn){
+                    Toast.makeText(this.ctxt, "Pen will not charge while charge with device option is enabled!", Toast.LENGTH_SHORT)
                 }
             }
 
@@ -136,9 +143,10 @@ object Duo: EntryStartup {
 
         // On power change, the broadcast receiver should act.
         penChargerIntentFilter = IntentFilter().also{ intentFilter -> 
-            intentFilter.addAction("ACTION_POWER_CONNECTED")
-            intentFilter.addAction("ACTION_POWER_DISCONNECTED")
+            intentFilter.addAction("android.intent.action.ACTION_POWER_CONNECTED")
+            intentFilter.addAction("android.intent.action.ACTION_POWER_DISCONNECTED")
             this.ctxt?.registerReceiver(penChargerBroadcastReceiver, intentFilter)
+            Log.d("PHH", "Broadcast Receiver registered for pen charger!")
         }
     }
 
@@ -146,6 +154,7 @@ object Duo: EntryStartup {
         try{
             penChargerBroadcastReceiver?.let{
                 this.ctxt?.unregisterReceiver(it)
+                Log.d("PHH", "Broadcast Receiver unregistered for pen charger!")
             }
         } catch (e: IllegalArgumentException){
             // Do nothing. the register is already unregistered it seems.
