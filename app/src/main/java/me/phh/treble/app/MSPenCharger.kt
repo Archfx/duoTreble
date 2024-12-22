@@ -62,6 +62,8 @@ public class WirelessPenChargerBroadcastReceiver: BroadcastReceiver() {
     val action: String? = intent.getAction()
     isDuo2 = SystemProperties.get("ro.hardware", "N/A") == "surfaceduo2"
 
+    Log.d(TAG, "Received intent! Broadcaster should be working as expected. Action:" + action)
+
     //exit early if duo 1 is here
     if(!isDuo2){
       Log.d(TAG, "Exiting as this device is not a duo 2")
@@ -69,12 +71,12 @@ public class WirelessPenChargerBroadcastReceiver: BroadcastReceiver() {
     }
     
     when(action){
-      "ACTION_POWER_CONNECTED" -> {
+      "android.intent.action.ACTION_POWER_CONNECTED" -> {
         // Turn power on.
         MSPenCharger.turnOnPenCharger()
         Log.d(TAG, "Pen Charger turned on from plugged in event.")
       }
-      "ACTION_POWER_DISCONNECTED" -> {
+      "android.intent.action.ACTION_POWER_DISCONNECTED" -> {
         // Shut power off.
         MSPenCharger.turnOffPenCharger()
         Log.d(TAG, "Pen Charger turned off from unplugged event.")
