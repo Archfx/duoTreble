@@ -10,4 +10,14 @@
       <item>"right"</item>
       <item>"left"</item>
     </array>
+      <array name="pref_hinge_peek_location_entries">
+        <item>"Center"</item>
+        <item>"Top"</item>
+        <item>"Bottom"</item>
+    </array>
+    <array name="pref_hinge_peek_location_values">
+      <item>"center"</item>
+      <item>"top"</item>
+      <item>"bottom"</item>
+    </array>
 </resources>

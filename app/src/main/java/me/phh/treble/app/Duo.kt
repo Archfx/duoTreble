@@ -125,6 +125,31 @@ object Duo: EntryStartup {
                     }                   
                 }
             }
+
+            DuoSettings.peekModeEnabled -> {
+                val b = sp.getBoolean(key, false)
+                val value = if(b) "1" else "0"
+                Misc.safeSetprop("persist.sys.phh.duo.peek_mode_enabled", value)
+            }
+
+            DuoSettings.peekModeHingeClockPosition -> {
+                val value = sp.getString(key, "center")
+                when(value) {
+                    "center" -> {                
+                        Misc.safeSetprop("persist.sys.phh.duo.peek_mode_hinge_clock_position", "0")
+                    }
+                    "top" -> {
+                        Misc.safeSetprop("persist.sys.phh.duo.peek_mode_hinge_clock_position", "1")
+                    }
+                    "bottom" -> {
+                        Misc.safeSetprop("persist.sys.phh.duo.peek_mode_hinge_clock_position", "2")
+                    }
+                    else -> {
+                        Misc.safeSetprop("persist.sys.phh.duo.peek_mode_hinge_clock_position", "0")  // default to center
+                    }
+                }
+
+            }
         }
     }
 
