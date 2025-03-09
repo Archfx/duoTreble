@@ -45,7 +45,8 @@
             android:entries="@array/pref_hinge_peek_location_entries"
             android:entryValues="@array/pref_hinge_peek_location_values"
             android:key="key_duo_hinge_clock_peek_location"
-            android:title="Specifies the location where the hinge clock should appear along the spine of the device." 
+            android:title="Peek Mode Hinge Clock"
+            android:summary="Specifies the location where the hinge clock should appear along the spine of the device." 
         />
     </PreferenceCategory>
 
