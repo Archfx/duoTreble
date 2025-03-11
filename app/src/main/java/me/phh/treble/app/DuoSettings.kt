@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.SystemProperties
 import androidx.preference.SwitchPreference
 import androidx.preference.PreferenceCategory
+import androidx.preference.ListPreference
 import android.util.Log
 
 
@@ -47,7 +48,7 @@ class DuoSettingsFragment : SettingsFragment() {
                 Log.d("PHH", "Removed Pen Charging category for hardware: $hardware")
             }
 
-            val peekModeHingeClockPositionPreference: SwitchPreference? = findPreference(DuoSettings.peekModeHingeClockPosition)
+            val peekModeHingeClockPositionPreference: ListPreference? = findPreference(DuoSettings.peekModeHingeClockPosition)
             peekModeHingeClockPositionPreference?.let{
                 preferenceScreen.removePreference(it)
                 Log.d("PHH", "Peek Mode Hinge Clock preference removed for hardware: $hardware")
