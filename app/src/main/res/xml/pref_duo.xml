@@ -23,13 +23,13 @@
             android:defaultValue="false"
             android:key="wireless_pen_charging"
             android:title="Enable Surface Slim Pen Wireless Charging"
-            android:summary="Allows pen charging when pen case is attached. May drain more battery."
+            android:summary="Allows pen charging when pen case is attached (drains more battery)."
         />
         <SwitchPreference
             android:defaultValue="false"
             android:key="charge_pen_while_device_is_charging"
             android:title="Charge Pen only when device is plugged in"
-            android:summary="Only charges pen when the device is plugged in. When unplugged, the pen will stop charging. Overrides the previous option."
+            android:summary="Only charges pen when the device is plugged in. Overrides the previous option."
         />
     </PreferenceCategory>
 
@@ -38,7 +38,7 @@
             android:defaultValue="true"
             android:key="key_duo_show_peek_overlay"
             android:title="Show Peek Mode Overlay"
-            android:summary="Determines if the overlay should show when peeking the device or charging the device."
+            android:summary="Enable Peek mode clock and Glance bar."
         />
         <ListPreference
             android:defaultValue="center"
@@ -46,7 +46,7 @@
             android:entryValues="@array/pref_hinge_peek_location_values"
             android:key="key_duo_hinge_clock_peek_location"
             android:title="Peek Mode Hinge Clock"
-            android:summary="Specifies the location where the hinge clock should appear along the spine of the device." 
+            android:summary="Location of the hinge clock along the spine of the device." 
         />
     </PreferenceCategory>
 
