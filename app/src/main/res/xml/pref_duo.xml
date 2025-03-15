@@ -29,7 +29,7 @@
             android:defaultValue="false"
             android:key="charge_pen_while_device_is_charging"
             android:title="Charge Pen only when device is plugged in"
-            android:summary="Only charges pen when the device is plugged in. Overrides the previous option."
+            android:summary="Only charges the pen when the device is plugged in. Overrides the previous option."
         />
     </PreferenceCategory>
 
@@ -45,7 +45,7 @@
             android:entries="@array/pref_hinge_peek_location_entries"
             android:entryValues="@array/pref_hinge_peek_location_values"
             android:key="key_duo_hinge_clock_peek_location"
-            android:title="Peek Mode Hinge Clock"
+            android:title="Hinge Clock Location"
             android:summary="Location of the hinge clock along the spine of the device." 
         />
     </PreferenceCategory>
