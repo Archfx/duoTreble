@@ -17,6 +17,7 @@
     <string name="update_error_message">An error has occurred during download!\nPlease, try again later.</string>
     <string name="success_install_message">New update installed successfully.\nPlease, reboot now.</string>
     <string name="failed_download_message">New update failed to be downloaded.\nCheck your logs for more information.</string>
+    <string name="failed_verify_message">The new update was downloaded but failed verification.\nYour current system was not changed.</string>
     <string name="failed_install_message">New update failed to be installed.\nCheck your logs for more information.</string>
     <string name="preparing_update_title">Preparing system update</string>
     <string name="downloading_update_title">Downloading system update</string>
