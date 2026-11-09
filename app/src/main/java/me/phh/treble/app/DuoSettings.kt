@@ -47,12 +47,6 @@ class DuoSettingsFragment : SettingsFragment() {
                 preferenceScreen.removePreference(it)
                 Log.d("PHH", "Removed Pen Charging category for hardware: $hardware")
             }
-
-            val peekModeHingeClockPositionPreference: ListPreference? = findPreference(DuoSettings.peekModeHingeClockPosition)
-            peekModeHingeClockPositionPreference?.let{
-                preferenceScreen.removePreference(it)
-                Log.d("PHH", "Peek Mode Hinge Clock preference removed for hardware: $hardware")
-            }
         }
     }
 
