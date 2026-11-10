@@ -40,14 +40,6 @@
             android:title="Show Peek Mode Overlay"
             android:summary="Enable Peek mode clock and Glance bar."
         />
-        <ListPreference
-            android:defaultValue="center"
-            android:entries="@array/pref_hinge_peek_location_entries"
-            android:entryValues="@array/pref_hinge_peek_location_values"
-            android:key="key_duo_hinge_clock_peek_location"
-            android:title="Hinge Clock Location"
-            android:summary="Location of the hinge clock along the spine of the device." 
-        />
     </PreferenceCategory>
 
 </PreferenceScreen>
